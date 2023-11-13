@@ -1,3 +1,4 @@
+import 'package:creat_task/adapter.dart';
 import 'package:creat_task/colors.dart';
 import 'package:creat_task/text_style.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/material.dart';
 class task_item extends StatelessWidget {
   const task_item({
     super.key,
+    required this.task,
   });
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,13 @@ class task_item extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Container(
         decoration: BoxDecoration(
-          color: ColorP.primary,
+          color: task.color == 0
+              ? ColorP.primary
+              : (task.color == 1)
+                  ? ColorP.orang
+                  : (task.color == 2)
+                      ? ColorP.pink
+                      : Colors.green,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
@@ -26,7 +35,7 @@ class task_item extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    " Task-1",
+                    task.title,
                     style: subtitles(colort: Colors.white, fontSizeT: 22),
                   ),
                   const SizedBox(
@@ -42,7 +51,7 @@ class task_item extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
-                        "02:25 AM-02:40 AM",
+                        "${task.starttime}:${task.endtime}",
                         style: subtitles(
                           colort: Colors.white,
                         ),
@@ -53,7 +62,7 @@ class task_item extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    " I Will Do This Task",
+                    task.note,
                     style: subtitles(colort: Colors.white, fontSizeT: 22),
                   ),
                 ],
@@ -69,7 +78,7 @@ class task_item extends StatelessWidget {
               //علشان الف التيكست
               quarterTurns: 3,
               child: Text(
-                "To Do",
+                task.iscomplete ? "Completed" : "To Do",
                 style: subtitles(colort: Colors.white),
               ),
             )
